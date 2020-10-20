@@ -15,10 +15,12 @@
     <% @hamams.each do |hamam| %>
       <tr>
         <td><%= hamam.name %></td>
-        <td><%= hamam.user_id %></td>
+        <td><%= hamam.user.email %></td>
         <td><%= link_to 'Show', hamam %></td>
+        <% if policy(hamam).edit? %>
         <td><%= link_to 'Edit', edit_hamam_path(hamam) %></td>
         <td><%= link_to 'Destroy', hamam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

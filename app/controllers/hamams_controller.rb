@@ -1,14 +1,14 @@
 class HamamsController < ApplicationController
   before_action :set_hamam, only: [:show, :edit, :update, :destroy]
+  after_action :authorize_hamam, only: [ :show, :new, :create, :edit, :update ]
 
   # GET /hamams
   def index
-    @hamams = Hamam.all
+    @hamams = policy_scope(Hamam)
   end
 
   # GET /hamams/1
-  def show
-  end
+  def show; end
 
   # GET /hamams/new
   def new
@@ -22,7 +22,7 @@ class HamamsController < ApplicationController
   # POST /hamams
   def create
     @hamam = Hamam.new(hamam_params)
-
+    @hamam.user = current_user
     if @hamam.save
       redirect_to @hamam, notice: 'Hamam was successfully created.'
     else
@@ -41,6 +41,7 @@ class HamamsController < ApplicationController
 
   # DELETE /hamams/1
   def destroy
+    authorize_hamam
     @hamam.destroy
     redirect_to hamams_url, notice: 'Hamam was successfully destroyed.'
   end
@@ -54,5 +55,9 @@ class HamamsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def hamam_params
       params.require(:hamam).permit(:name, :user_id)
+    end
+
+    def authorize_hamam
+      authorize @hamam
     end
 end

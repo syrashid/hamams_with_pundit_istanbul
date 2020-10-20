@@ -7,8 +7,10 @@
 
 <p>
   <strong>User:</strong>
-  <%= @hamam.user_id %>
+  <%= @hamam.user.email %>
 </p>
 
-<%= link_to 'Edit', edit_hamam_path(@hamam) %> |
+<% if policy(@hamam).edit?  %>
+  <%= link_to 'Edit', edit_hamam_path(@hamam) %>
+<% end %> |
 <%= link_to 'Back', hamams_path %>

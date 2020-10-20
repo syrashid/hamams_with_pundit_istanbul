@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @hamam.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @hamam.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_hamam_path(@hamam) %> |
+<%= link_to 'Back', hamams_path %>
